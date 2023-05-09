@@ -8,17 +8,13 @@ fun main() {
 
     if (limits(transfer, transferDaily, transferOnMonth, cardOwnership)) {
         println(
-            """Сумма перевода: $transfer 
+            """Карта: $cardOwnership 
         |Переведено сегодня: $transferDaily
         |Переведено в этом месяце: $transferOnMonth
-        |Карта: $cardOwnership
+        |Сумма перевода: $transfer
         |Комиссия за перевод составит: ${comission(transfer, transferOnMonth, cardOwnership)}
         |Сумма перевода с комиссией: ${
-                transfer + comission(
-                    transfer,
-                    transferOnMonth,
-                    cardOwnership
-                )
+                transfer + comission(transfer, transferOnMonth, cardOwnership)
             }""".trimMargin()
         )
     } else {
@@ -28,19 +24,19 @@ fun main() {
 
 fun comission(transfer: Int, transferOnMonth: Int, cardOwnership: String): Int {
 
-   return when (cardOwnership) {
-       "Mastercard", "Maestro" -> if (transferOnMonth < 75000) {
-           return 0
-       } else {
-           (transfer * 0.006 + 20).roundToInt()
-       }
-       "Visa", "Mir" -> if (transfer * 0.0075 < 35) {
-           35
-       } else {
-           (transfer * 0.0075).roundToInt()
-       }
-       else -> 0
-   }
+    return when (cardOwnership) {
+        "Mastercard", "Maestro" -> if (transferOnMonth < 75000) {
+            0
+        } else {
+            (transfer * 0.006 + 20).roundToInt()
+        }
+        "Visa", "Mir" -> if (transfer * 0.0075 < 35) {
+            35
+        } else {
+            (transfer * 0.0075).roundToInt()
+        }
+        else -> 0
+    }
 }
 
 fun limits(transfer: Int, transferDaily: Int, transferOnMonth: Int, cardOwnership: String): Boolean {
