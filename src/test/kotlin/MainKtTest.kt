@@ -11,7 +11,7 @@ class MainKtTest {
         val cardOwnership = "VK Pay"
 
         val result = comission(transfer, transferOnMonth, cardOwnership)
-        assertEquals(0, result)
+        assertEquals(1, result)
     }
     @Test
     fun comissionMastercardNoLimit() {
